@@ -125,7 +125,7 @@ function App() {
             />
           ))
         ) : (
-          <p>Search Location</p>
+          <p className="empty-msg">Search a location to get started</p>
         )}
       </main>
 

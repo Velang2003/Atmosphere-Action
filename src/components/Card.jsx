@@ -42,7 +42,11 @@ function Card({ location, onRemove }) {
   }, [location.latitude, location.longitude]);
 
   if (!weatherData) {
-    return <p>Loading...</p>;
+    return (
+      <div className="card card-loading">
+        <p>Loading weather data...</p>
+      </div>
+    );
   }
 
   const temperatureData =
