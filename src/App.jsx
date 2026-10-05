@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Analytics } from "@vercel/analytics/next"
 
 import Card from "./components/Card";
 import BottomNavigator from "./components/BottomNavigator";
@@ -129,6 +130,7 @@ function App() {
 
       {/* Bottom Navigation */}
       <BottomNavigator />
+      <Analytics/>
     </>
   );
 }
