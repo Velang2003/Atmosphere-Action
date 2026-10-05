@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Analytics } from "@vercel/analytics/react"
 
+import logo from "./assets/logo.png";
 import Card from "./components/Card";
 import BottomNavigator from "./components/BottomNavigator";
 import useFetchData from "./useFetchData";
@@ -83,7 +84,7 @@ function App() {
           <div className="app-logo">
             <img
               id="logo"
-              src="src/assets/logo.png"
+              src={logo}
               alt="app-icon"
             />
 

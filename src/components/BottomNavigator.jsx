@@ -1,11 +1,13 @@
 import { Link } from "react-router"
+import Home from "../assets/home.png"
+import About from "../assets/about.png"
 
 function BottomNavigator() {
   return (
      <section>
             <Link to={"/"}>  
                 <div id="Home-nav">
-                    <img src="/src/assets/home.png" alt="Home-icon" />
+                    <img src={Home} alt="Home-icon" />
                     <p>Home</p>
                 </div>
             </Link>
@@ -19,7 +21,7 @@ function BottomNavigator() {
 
           <Link to={"/about"}>
                 <div id="Saved-location-nav" >
-                    <img src="/src/assets/about.png" alt="Save-icon" />
+                    <img src={About} alt="Save-icon" />
                     <p>About</p>
                 </div>
           </Link>

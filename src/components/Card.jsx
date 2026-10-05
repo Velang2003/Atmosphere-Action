@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import sun from "../assets/sun.png";
+import humidity from "../assets/humidity.png";
+import wind from "../assets/wind.png";
 
 function Card({ location, onRemove }) {
   const [weatherData, setWeatherData] = useState(null);
@@ -73,7 +76,7 @@ function Card({ location, onRemove }) {
 
         <div className="temperature report">
           <img
-            src="src/assets/sun.png"
+            src={sun}
             alt="temperature icon"
           />
           <p>{temperatureData}</p>
@@ -81,7 +84,7 @@ function Card({ location, onRemove }) {
 
         <div className="Humidity report">
           <img
-            src="src/assets/humidity.png"
+            src={humidity}
             alt="humidity icon"
           />
           <p>{humidityData}</p>
@@ -89,7 +92,7 @@ function Card({ location, onRemove }) {
 
         <div className="Wind report">
           <img
-            src="src/assets/wind.png"
+            src={wind}
             alt="wind icon"
           />
           <p>{windSpeedData}</p>
