@@ -1,6 +1,6 @@
 # ⛅ Atmosphere Action
 
-A modern, responsive weather tracking application built with **React 19**, **Vite**, and the **Open-Meteo API**. Search and track real-time weather metrics across multiple cities simultaneously with automatic data refreshes and persistent local storage.
+A modern, responsive weather tracking application built with **React 19**, **Vite**, and the **Open-Meteo API**. Search and track real-time weather metrics across multiple cities simultaneously with automatic data refreshes and persistent local storage. [roadmap.sh](https://roadmap.sh/projects/weather-app). 
 
 ---
 
