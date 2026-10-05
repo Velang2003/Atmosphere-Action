@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import sun from "../assets/sun.png";
 import humidity from "../assets/humidity.png";
 import wind from "../assets/wind.png";
-import remove from "../assets/close.png";
+import remove from "../assets/remove.png";
 
 function Card({ location, onRemove }) {
   const [weatherData, setWeatherData] = useState(null);
