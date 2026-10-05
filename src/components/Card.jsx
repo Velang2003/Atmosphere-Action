@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import sun from "../assets/sun.png";
 import humidity from "../assets/humidity.png";
 import wind from "../assets/wind.png";
+import remove from "../assets/close.png";
 
 function Card({ location, onRemove }) {
   const [weatherData, setWeatherData] = useState(null);
@@ -66,7 +67,7 @@ function Card({ location, onRemove }) {
 
         <button onClick={onRemove}>
           <img
-            src="src/assets/close.png"
+            src={remove}
             alt="Remove location"
           />
         </button>
