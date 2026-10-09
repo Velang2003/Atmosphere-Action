@@ -45,6 +45,7 @@ function WeatherDetails() {
   }
 
   const sevenDayCards = [];
+  if(weatherData !== null){
   for(let i=0; i<7; i++){
     sevenDayCards.push(
       <div className="eachDayCard">
@@ -54,6 +55,7 @@ function WeatherDetails() {
         <p>{weatherData.daily.uv_index_max[i]}</p>
       </div>
     );
+  }
   }
   
   return (
