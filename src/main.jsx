@@ -8,11 +8,16 @@ import App from './App.jsx'
 import PageNotFound from './components/PageNotFound.jsx'
 import About from './components/About.jsx'
 import SavedLocations from './components/SavedLocations.jsx'
+import WeatherDetails from './components/WeatherDetails.jsx'
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App/>
+  },
+  {
+    path: "/weather",
+    element: <WeatherDetails/>
   },
   {
     path: "/about",

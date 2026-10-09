@@ -174,7 +174,8 @@ header {
   padding: 18px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 16px;
-  background-color: var(--sky-blue-light);
+  /* background-color: var(--sky-blue-light); */
+  background-image: linear-gradient(150deg,white 30%, var(--sky-blue-light) );
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -200,6 +201,10 @@ header {
   justify-content: space-between;
   align-items: flex-start;
   gap: 10px;
+}
+
+.locationName a{
+  text-decoration: none;
 }
 
 .locationName h2 {
@@ -269,7 +274,7 @@ header {
 
 
 /* Bottom Navigation */
-section{
+.bottomNavigator{
   background-color: white;
   display: flex;
   max-width: 800px;
@@ -287,7 +292,7 @@ section{
   text-decoration: none;
 }
 
-section a{
+.bottomNavigator a{
   text-decoration: none;
   color: var(--deep-space-blue);
 }
@@ -296,7 +301,7 @@ Link{
   text-decoration: none;
 }
 
-section div img{
+.bottomNavigator div img{
   width: 30px;
   cursor: pointer;
 }
@@ -349,4 +354,257 @@ footer p{
 
 .about-section p a{
   color: var(--sky-blue-light);
+}
+
+
+/* =========================================================
+   Individual Weather Details Component
+   ========================================================= */
+
+/* Main container card */
+.weatherCard {
+  background: linear-gradient(145deg, #219ebc, #023047);
+  width: min(900px, 92%);
+  margin: 20px auto 100px auto;
+  border-radius: 20px;
+  padding: 24px;
+  color: var(--deep-space-blue);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-sizing: border-box;
+}
+
+/* Loading State Component */
+.loadingComponent {
+  background: white;
+  margin: 80px auto;
+  border-radius: 20px;
+  width: min(280px, 85%);
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.loadingComponent img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 16px;
+}
+
+.loadingComponent p {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--deep-space-blue);
+}
+
+/* Common Section Card Style */
+.locationDetails,
+.weatherDetails,
+.sevenDayContainer {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  width: 100%;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+}
+
+/* Location Header Details */
+.locationDetails h2 {
+  font-size: clamp(1.4rem, 4vw, 1.85rem);
+  color: var(--deep-space-blue);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.locationDetails p {
+  color: #4a5568;
+  font-size: 1rem;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.locationDetails .coordinates {
+  font-size: 0.8rem;
+  color: #718096;
+  font-weight: 400;
+  margin-top: 6px;
+  font-family: monospace;
+}
+
+/* Current Weather Details Section */
+.weatherDetails h3 {
+  font-size: 1.2rem;
+  color: var(--deep-space-blue);
+  margin-bottom: 14px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--sky-blue-light);
+  font-weight: 700;
+}
+
+.weatherDetails p {
+  margin: 8px 0;
+  padding: 10px 14px;
+  background: #f1f8fc;
+  border-left: 4px solid var(--princeton-orange);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--deep-space-blue);
+  transition: background-color 0.2s ease;
+}
+
+.weatherDetails p:hover {
+  background: #e1f0f8;
+}
+
+/* 7-Days Forecast Section */
+.sevenDayContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.sevenDayContainer h3 {
+  font-size: 1.2rem;
+  color: var(--deep-space-blue);
+  margin-bottom: 4px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--sky-blue-light);
+  font-weight: 700;
+}
+
+.dailyCards {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 8px 4px 14px 4px;
+  width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: var(--blue-green) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dailyCards::-webkit-scrollbar {
+  height: 6px;
+}
+
+.dailyCards::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dailyCards::-webkit-scrollbar-thumb {
+  background: var(--blue-green);
+  border-radius: 6px;
+}
+
+/* Individual Day Card */
+.dailyCards .eachDayCard {
+  background: linear-gradient(135deg, var(--amber-flame), var(--princeton-orange));
+  color: white;
+  border-radius: 14px;
+  min-width: 140px;
+  max-width: 160px;
+  flex: 0 0 auto;
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(251, 133, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: default;
+}
+
+.dailyCards .eachDayCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(251, 133, 0, 0.45);
+}
+
+.eachDayCard .CardDate {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 4px;
+}
+
+.eachDayCard > p:nth-child(2) {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 4px 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.eachDayCard > p:nth-child(3),
+.eachDayCard > p:nth-child(4) {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 500;
+}
+
+/* =========================================================
+   Responsive Breakpoints for Weather Details
+   ========================================================= */
+
+/* Tablet & Desktop view */
+@media (min-width: 640px) {
+  .weatherCard {
+    padding: 28px;
+    gap: 22px;
+  }
+
+  .weatherDetails {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .weatherDetails h3 {
+    grid-column: 1 / -1;
+  }
+
+  .weatherDetails p {
+    margin: 0;
+  }
+
+  .dailyCards .eachDayCard {
+    min-width: 150px;
+    padding: 16px 14px;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 480px) {
+  .weatherCard {
+    width: 95%;
+    padding: 16px;
+    border-radius: 16px;
+    margin: 12px auto 90px auto;
+  }
+
+  .locationDetails,
+  .weatherDetails,
+  .sevenDayContainer {
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .dailyCards .eachDayCard {
+    min-width: 130px;
+    padding: 12px 10px;
+  }
 }

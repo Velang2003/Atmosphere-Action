@@ -3,8 +3,9 @@ import sun from "../assets/sun.png";
 import humidity from "../assets/humidity.png";
 import wind from "../assets/wind.png";
 import remove from "../assets/remove.png";
+import { Link } from "react-router";
 
-function Card({ location, onRemove }) {
+function Card({ location, onRemove , coordinates}) {
   const [weatherData, setWeatherData] = useState(null);
 
   useEffect(() => {
@@ -62,12 +63,14 @@ function Card({ location, onRemove }) {
     <div className="card">
 
       <div className="locationName">
-        <div>
-          <h2>{location.name}</h2>
-          <p>
-            {location.state}, {location.country}
-          </p>
-        </div>
+        <Link to={`/weather`} state={{location}}>
+              <div>
+                <h2>{location.name}</h2>
+                <p>
+                  {location.state}, {location.country}
+                </p>
+              </div>
+        </Link>
 
         <button onClick={onRemove}>
           <img

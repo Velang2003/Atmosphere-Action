@@ -4,7 +4,7 @@ import About from "../assets/about.png"
 
 function BottomNavigator() {
   return (
-     <section>
+     <section className="bottomNavigator">
             <Link to={"/"}>  
                 <div id="Home-nav">
                     <img src={Home} alt="Home-icon" />
