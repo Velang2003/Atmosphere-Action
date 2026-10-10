@@ -59,11 +59,19 @@ function Card({ location, onRemove , coordinates}) {
   const windSpeedData =
     `${weatherData.current.wind_speed_10m} ${weatherData.current_units.wind_speed_10m}`;
 
-  return (
+  const queryParams = new URLSearchParams({
+  lat: location.latitude,
+  lon: location.longitude,
+  name: location.name,
+  state: location.state || "",
+  country: location.country || "",
+}).toString();
+  
+return (
     <div className="card">
 
       <div className="locationName">
-        <Link to={`/weather`} state={{location}}>
+        <Link to={`/weather?${queryParams}`} state={{location}}>
               <div>
                 <h2>{location.name}</h2>
                 <p>

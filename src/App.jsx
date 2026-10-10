@@ -102,7 +102,6 @@ function App() {
             id="location"
             value={location}
             required
-            placeholder="e.g. Bengaluru"
             onChange={(event) => setLocation(event.target.value)}
           />
 
@@ -121,11 +120,12 @@ function App() {
             <Card
               key={`${location.latitude}-${location.longitude}`}
               location={location}
+              
               onRemove={() => removeLocation(location)}
             />
           ))
         ) : (
-          <p className="empty-msg">Search a location to get started</p>
+          <p>Search Location</p>
         )}
       </main>
 

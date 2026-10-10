@@ -1,49 +1,76 @@
 import { useEffect, useState } from "react";
-import {  useLocation } from "react-router";
+import { useLocation, useSearchParams, useNavigate, Link } from "react-router";
 import loading from "../assets/loading.gif";
 import BottomNavigator from "./BottomNavigator";
 import weatherCodes from "../weatherCodes";
 import LineChart from "./charts/LineChart";
-
 function WeatherDetails() {
-    // console.log(weatherCodes);
-    const { state } = useLocation();
-    const location = state.location;
-
-    const [weatherData, setWeatherData] = useState(null);
-
-    // console.log(location);
-
-    
-    useEffect(()=>{
-      if(!location) return;
-
-      const controller = new AbortController();
-
-      fetch(`https://api.open-meteo.com/v1/forecast?latitude=${location.latitude}&longitude=${location.longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min,uv_index_max,wind_speed_10m_max&current=temperature_2m,relative_humidity_2m,is_day,rain,wind_speed_10m,pressure_msl&timezone=auto&hourly=temperature_2m`, {signal: controller.signal})
-      .then(response => {
-        if(!response.ok) throw new Error("Something went wrong...");
+  const { state } = useLocation();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  // 1. Read location from URL query params or router state
+  const lat = searchParams.get("lat") || state?.location?.latitude;
+  const lon = searchParams.get("lon") || state?.location?.longitude;
+  const name = searchParams.get("name") || state?.location?.name;
+  const stateName = searchParams.get("state") || state?.location?.state;
+  const country = searchParams.get("country") || state?.location?.country;
+  const location = lat && lon ? {
+    latitude: lat,
+    longitude: lon,
+    name: name || "Unknown Location",
+    state: stateName || "",
+    country: country || "",
+  } : null;
+  const [weatherData, setWeatherData] = useState(null);
+  useEffect(() => {
+    // If no coordinates are present, redirect back home
+    if (!location) {
+      return;
+    }
+    const controller = new AbortController();
+    fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${location.latitude}&longitude=${location.longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min,uv_index_max,wind_speed_10m_max&current=temperature_2m,relative_humidity_2m,is_day,rain,wind_speed_10m,pressure_msl&timezone=auto&hourly=temperature_2m`,
+      { signal: controller.signal }
+    )
+      .then((response) => {
+        if (!response.ok) throw new Error("Something went wrong...");
         return response.json();
       })
-      .then(data => setWeatherData(data))
-      .catch(error => console.log(error));
-
-      return ()=>{
-        controller.abort();
-      }
-
-    },[location]);
-
-    console.log(weatherData);
-
-    
-    if(!weatherData){
-      return(<>
-       <div className="loadingComponent">
-         <img src={loading} alt="loading GIF" />
-         <p>Loading...</p>
-       </div>
-    </>);
+      .then((data) => setWeatherData(data))
+      .catch((error) => {
+        if (error.name !== "AbortError") {
+          console.error("Fetch error:", error);
+        }
+      });
+    return () => {
+      controller.abort();
+    };
+  }, [location?.latitude, location?.longitude]);
+  // Fallback if accessed directly with no coordinates
+  if (!location) {
+    return (
+      <div className="weatherCard" style={{ textAlign: "center", margin: "40px auto" }}>
+        <div className="locationDetails">
+          <h2>No Location Selected</h2>
+          <p style={{ margin: "16px 0" }}>Please search for a city on the home page.</p>
+          <Link to="/" style={{ color: "var(--princeton-orange)", fontWeight: 600 }}>
+            ← Back to Home
+          </Link>
+        </div>
+        <BottomNavigator />
+      </div>
+    );
+  }
+  if (!weatherData) {
+    return (
+      <>
+        <div className="loadingComponent">
+          <img src={loading} alt="loading GIF" />
+          <p>Loading...</p>
+        </div>
+        <BottomNavigator />
+      </>
+    );
   }
 
   const sevenDayCards = [];
