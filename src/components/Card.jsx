@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import sun from "../assets/sun.png";
 import humidity from "../assets/humidity.png";
 import wind from "../assets/wind.png";
 import remove from "../assets/remove.png";
-import { Link } from "react-router";
 
-function Card({ location, onRemove , coordinates}) {
+function Card({ location, onRemove }) {
   const [weatherData, setWeatherData] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -21,7 +22,6 @@ function Card({ location, onRemove , coordinates}) {
         );
 
         const data = await response.json();
-
         setWeatherData(data);
       } catch (error) {
         if (error.name !== "AbortError") {
@@ -60,62 +60,54 @@ function Card({ location, onRemove , coordinates}) {
     `${weatherData.current.wind_speed_10m} ${weatherData.current_units.wind_speed_10m}`;
 
   const queryParams = new URLSearchParams({
-  lat: location.latitude,
-  lon: location.longitude,
-  name: location.name,
-  state: location.state || "",
-  country: location.country || "",
-}).toString();
-  
-return (
-    <div className="card">
+    lat: location.latitude,
+    lon: location.longitude,
+    name: location.name,
+    state: location.state || "",
+    country: location.country || "",
+  }).toString();
 
+  function handleCardClick() {
+    localStorage.setItem("selectedLocation", JSON.stringify(location));
+    navigate(`/weather?${queryParams}`, { state: { location } });
+  }
+
+  function handleRemove(e) {
+    e.stopPropagation();
+    onRemove();
+  }
+
+  return (
+    <div className="card" onClick={handleCardClick}>
       <div className="locationName">
-        <Link to={`/weather?${queryParams}`} state={{location}}>
-              <div>
-                <h2>{location.name}</h2>
-                <p>
-                  {location.state}, {location.country}
-                </p>
-              </div>
-        </Link>
+        <div>
+          <h2>{location.name}</h2>
+          <p>
+            {location.state ? `${location.state}, ` : ""}{location.country}
+          </p>
+        </div>
 
-        <button onClick={onRemove}>
-          <img
-            src={remove}
-            alt="Remove location"
-          />
+        <button onClick={handleRemove} title="Remove location">
+          <img src={remove} alt="Remove location" />
         </button>
       </div>
 
       <div className="details">
-
         <div className="temperature report">
-          <img
-            src={sun}
-            alt="temperature icon"
-          />
+          <img src={sun} alt="temperature icon" />
           <p>{temperatureData}</p>
         </div>
 
         <div className="Humidity report">
-          <img
-            src={humidity}
-            alt="humidity icon"
-          />
+          <img src={humidity} alt="humidity icon" />
           <p>{humidityData}</p>
         </div>
 
         <div className="Wind report">
-          <img
-            src={wind}
-            alt="wind icon"
-          />
+          <img src={wind} alt="wind icon" />
           <p>{windSpeedData}</p>
         </div>
-
       </div>
-
     </div>
   );
 }
