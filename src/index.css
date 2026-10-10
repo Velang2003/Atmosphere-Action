@@ -13,12 +13,18 @@
   font-family: "Inter", sans-serif;
 }
 
+html{
+  min-height: 100%;
+  background-color: #023047;
+}
+
 body{
   background: linear-gradient(var(--sky-blue-light), var(--deep-space-blue));
-  height: 100vh;
-  overflow-y: auto;
+  min-height: 100vh;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
-  overflow: hidden;
+  scrollbar-width: none;
+  /* overflow-y: hidden; */
 }
 
 header{
@@ -146,7 +152,9 @@ body,
 }
 
 body {
-  overflow: hidden;
+  overflow: auto;
+  /* background-repeat: no-repeat; */
+  scrollbar-width: none;
 }
 
 #root {
@@ -374,6 +382,8 @@ footer p{
   flex-direction: column;
   gap: 18px;
   box-sizing: border-box;
+  scrollbar-width: none;
+  padding-bottom: 200px;
 }
 
 /* Loading State Component */
@@ -406,7 +416,8 @@ footer p{
 /* Common Section Card Style */
 .locationDetails,
 .weatherDetails,
-.sevenDayContainer {
+.sevenDayContainer,
+.LineChart {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(8px);
   width: 100%;
