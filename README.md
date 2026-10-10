@@ -103,7 +103,7 @@ Weather and geocoding data are provided by [Open-Meteo](https://open-meteo.com/)
 ## 🔮 Future Improvements
 
 - ✅ 5-to-7 day extended weather forecast
-- [ ] Hourly temperature breakdown & interactive charts
+- ✅ Hourly temperature breakdown & interactive charts
 - [ ] Auto-detect user's current location via Geolocation API
 - [ ] Temperature unit switcher (°C / °F)
 - [ ] Light / Dark theme toggle

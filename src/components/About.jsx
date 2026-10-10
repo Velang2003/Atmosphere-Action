@@ -4,7 +4,7 @@ function About() {
   return (
     <>  
        <div className="about-section">
-           <h3>About Atmosphere Action (v.1.1)</h3>
+           <h3>About Atmosphere Action (v.1.2)</h3>
           <p>
             Atmosphere Action is a responsive weather application built with React.js. It allows users to search for multiple locations and view their current temperature, humidity, and wind speed in one place.
             This project was created as a hands-on learning project to explore React, API integration, custom hooks, state management, localStorage, responsive design, and dynamic data updates.
