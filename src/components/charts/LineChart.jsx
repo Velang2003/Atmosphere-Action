@@ -7,9 +7,10 @@ import {
   Line,
   Tooltip,
 } from "recharts";
+import { useSettings } from "../../SettingsContext";
 
 // Custom Tooltip component for dynamic timezone & formatted temperature
-function CustomTooltip({ active, payload, unit, timezone }) {
+function CustomTooltip({ active, payload, unit }) {
   if (active && payload && payload.length) {
     const dataPoint = payload[0].payload;
     return (
@@ -37,12 +38,13 @@ function CustomTooltip({ active, payload, unit, timezone }) {
 }
 
 export default function HourlyTemperatureChart(data) {
+  const { convertValue, tempUnit, theme } = useSettings();
+
   if (!data?.hourly?.time || !data?.hourly?.temperature_2m) {
     return null;
   }
 
   const timezone = data.timezone || "UTC";
-  const tempUnit = data.hourly_units?.temperature_2m || "°C";
 
   // 1. Get today's local date string (YYYY-MM-DD) for the searched location's timezone
   let today;
@@ -58,7 +60,7 @@ export default function HourlyTemperatureChart(data) {
   }
 
   // 2. Get current time in the searched location's timezone for the header badge
-  let currentLocalTime = "";
+  let currentLocalTime;
   try {
     currentLocalTime = new Intl.DateTimeFormat("en-US", {
       timeZone: timezone,
@@ -88,7 +90,7 @@ export default function HourlyTemperatureChart(data) {
         datePart,
         time: formattedTime,
         fullTime,
-        temperature: data.hourly.temperature_2m[index],
+        temperature: convertValue(data.hourly.temperature_2m[index]),
       };
     })
     .filter((item) => item && item.datePart === today);
@@ -98,57 +100,38 @@ export default function HourlyTemperatureChart(data) {
     hourlyChartData.length > 0
       ? hourlyChartData
       : data.hourly.time.slice(0, 24).map((rawTime, index) => {
-          const [_, timePart] = rawTime.split("T");
+          const [, timePart] = rawTime.split("T");
           const hour = parseInt(timePart?.split(":")[0] || "0", 10);
           const period = hour >= 12 ? "PM" : "AM";
           const hour12 = hour % 12 === 0 ? 12 : hour % 12;
           return {
             time: `${hour12} ${period}`,
             fullTime: `${hour12}:00 ${period}`,
-            temperature: data.hourly.temperature_2m[index],
+            temperature: convertValue(data.hourly.temperature_2m[index]),
           };
         });
 
   const formattedTz = timezone.replace(/_/g, " ");
 
+  const isDark =
+    theme === "dark" ||
+    (theme === "system" &&
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+  const axisTextColor = isDark ? "#94a3b8" : "#023047";
+  const gridColor = isDark ? "rgba(255, 255, 255, 0.12)" : "#e2e8f0";
+
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
       {/* Header with Title & Dynamic Location Timezone Info */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexWrap: "wrap",
-          gap: "8px",
-          marginBottom: "12px",
-          borderBottom: "2px solid var(--sky-blue-light, #8ecae6)",
-          paddingBottom: "6px",
-        }}
-      >
-        <h3
-          style={{
-            margin: 0,
-            color: "var(--deep-space-blue, #023047)",
-            fontSize: "1.2rem",
-            fontWeight: 700,
-          }}
-        >
+      <div className="chart-header">
+        <h3 className="chart-title">
           Today's Hourly Temperature
         </h3>
 
         <div
-          style={{
-            fontSize: "0.8rem",
-            fontWeight: 600,
-            backgroundColor: "rgba(33, 158, 188, 0.15)",
-            color: "var(--deep-space-blue, #023047)",
-            padding: "4px 10px",
-            borderRadius: "20px",
-            display: "flex",
-            alignItems: "center",
-            gap: "6px",
-          }}
+          className="chart-timezone-badge"
           title={`Location Timezone: ${timezone}`}
         >
           <span>🕒 {formattedTz}</span>
@@ -165,22 +148,22 @@ export default function HourlyTemperatureChart(data) {
             data={chartData}
             margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
           >
-            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+            <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
             <XAxis
               dataKey="time"
               interval={2}
-              tick={{ fontSize: 11, fill: "#023047" }}
-              tickLine={{ stroke: "#023047" }}
+              tick={{ fontSize: 11, fill: axisTextColor }}
+              tickLine={{ stroke: axisTextColor }}
             />
             <YAxis
               unit={tempUnit}
-              tick={{ fontSize: 11, fill: "#023047" }}
-              tickLine={{ stroke: "#023047" }}
+              tick={{ fontSize: 11, fill: axisTextColor }}
+              tickLine={{ stroke: axisTextColor }}
               domain={["auto", "auto"]}
             />
             <Tooltip
               content={
-                <CustomTooltip unit={tempUnit} timezone={formattedTz} />
+                <CustomTooltip unit={tempUnit} />
               }
             />
             <Line
@@ -191,7 +174,7 @@ export default function HourlyTemperatureChart(data) {
               dot={{ r: 2, fill: "#fb8500" }}
               activeDot={{
                 r: 5,
-                fill: "#023047",
+                fill: isDark ? "#1e293b" : "#023047",
                 stroke: "#fb8500",
                 strokeWidth: 2,
               }}

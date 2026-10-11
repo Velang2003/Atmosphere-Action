@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useSearchParams, Link } from "react-router";
+import { useSettings } from "../SettingsContext";
 import loading from "../assets/loading.gif";
 import BottomNavigator from "./BottomNavigator";
 import weatherCodes from "../weatherCodes";
@@ -8,6 +9,7 @@ import LineChart from "./charts/LineChart";
 function WeatherDetails() {
   const { state } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { formatTemp } = useSettings();
 
   // 1. Resolve location from (1) Query Params, (2) Router State, (3) localStorage
   const location = (() => {
@@ -157,8 +159,8 @@ function WeatherDetails() {
         <div className="eachDayCard" key={weatherData.daily.time[i]}>
           <p className="CardDate">{weatherData.daily.time[i]}</p>
           <p>
-            {weatherData.daily.temperature_2m_max[i]} / {weatherData.daily.temperature_2m_min[i]}{" "}
-            {weatherData.current_units?.temperature_2m || "°C"}
+            {formatTemp(weatherData.daily.temperature_2m_max[i])} /{" "}
+            {formatTemp(weatherData.daily.temperature_2m_min[i])}
           </p>
           <p>{weatherCodes[weatherData.daily.weather_code[i]] || "Unknown Weather Code"}</p>
           <p>UV index: {weatherData.daily.uv_index_max[i]}</p>
@@ -186,10 +188,7 @@ function WeatherDetails() {
         {/* Displays General Current Weather Data */}
         <div className="weatherDetails">
           <h3>Current Weather</h3>
-          <p>
-            Temperature: {weatherData.current?.temperature_2m}{" "}
-            {weatherData.current_units?.temperature_2m}
-          </p>
+          <p>Temperature: {formatTemp(weatherData.current?.temperature_2m)}</p>
           <p>
             Relative Humidity: {weatherData.current?.relative_humidity_2m}{" "}
             {weatherData.current_units?.relative_humidity_2m}

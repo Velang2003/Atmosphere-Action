@@ -1,32 +1,33 @@
-import { Link } from "react-router"
-import Home from "../assets/home.png"
-import About from "../assets/about.png"
+import { Link } from "react-router";
+import Home from "../assets/home.png";
+import About from "../assets/about.png";
+import Setting from "../assets/setting.png";
 
 function BottomNavigator() {
   return (
-     <section className="bottomNavigator">
-            <Link to={"/"}>  
-                <div id="Home-nav">
-                    <img src={Home} alt="Home-icon" />
-                    <p>Home</p>
-                </div>
-            </Link>
-{/* 
-          <Link to={"/Locations"}>
-                <div id="Saved-location-nav">
-                    <img src="/src/assets/toSave.png" alt="Save-icon" />
-                    <p>Saved Locations</p>
-                </div>
-          </Link> */}
+    <section className="bottomNavigator">
+      <Link to={"/"}>
+        <div id="Home-nav">
+          <img src={Home} alt="Home-icon" />
+          <p>Home</p>
+        </div>
+      </Link>
 
-          <Link to={"/about"}>
-                <div id="Saved-location-nav" >
-                    <img src={About} alt="Save-icon" />
-                    <p>About</p>
-                </div>
-          </Link>
-      </section>
-  )
+      <Link to={"/settings"}>
+        <div id="Settings-nav">
+          <img src={Setting} alt="Settings-icon" />
+          <p>Settings</p>
+        </div>
+      </Link>
+
+      <Link to={"/about"}>
+        <div id="About-nav">
+          <img src={About} alt="About-icon" />
+          <p>About</p>
+        </div>
+      </Link>
+    </section>
+  );
 }
 
-export default BottomNavigator
+export default BottomNavigator;

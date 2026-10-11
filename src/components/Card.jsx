@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { useSettings } from "../SettingsContext";
 import sun from "../assets/sun.png";
 import humidity from "../assets/humidity.png";
 import wind from "../assets/wind.png";
@@ -8,6 +9,7 @@ import remove from "../assets/remove.png";
 function Card({ location, onRemove }) {
   const [weatherData, setWeatherData] = useState(null);
   const navigate = useNavigate();
+  const { formatTemp } = useSettings();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -50,8 +52,7 @@ function Card({ location, onRemove }) {
     );
   }
 
-  const temperatureData =
-    `${weatherData.current.temperature_2m} ${weatherData.current_units.temperature_2m}`;
+  const temperatureData = formatTemp(weatherData.current.temperature_2m);
 
   const humidityData =
     `${weatherData.current.relative_humidity_2m} ${weatherData.current_units.relative_humidity_2m}`;
@@ -81,7 +82,12 @@ function Card({ location, onRemove }) {
     <div className="card" onClick={handleCardClick}>
       <div className="locationName">
         <div>
-          <h2>{location.name}</h2>
+          <div className="locationTitleRow">
+            <h2>{location.name}</h2>
+            {location.isCurrentLocation && (
+              <span className="currentLocationBadge">📍 Current Location</span>
+            )}
+          </div>
           <p>
             {location.state ? `${location.state}, ` : ""}{location.country}
           </p>

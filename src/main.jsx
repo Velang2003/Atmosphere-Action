@@ -7,8 +7,9 @@ import './index.css'
 import App from './App.jsx'
 import PageNotFound from './components/PageNotFound.jsx'
 import About from './components/About.jsx'
-import SavedLocations from './components/SavedLocations.jsx'
+import Settings from './components/Settings.jsx'
 import WeatherDetails from './components/WeatherDetails.jsx'
+import { SettingsProvider } from './SettingsContext.jsx'
 
 const router = createBrowserRouter([
   {
@@ -20,13 +21,13 @@ const router = createBrowserRouter([
     element: <WeatherDetails/>
   },
   {
+    path: "/settings",
+    element: <Settings/>
+  },
+  {
     path: "/about",
     element: <About/>
   },
-  // {
-  //   path: "/locations",
-  //   element: <SavedLocations/>
-  // },
   {
     path: "*",
     element: <PageNotFound/>
@@ -35,6 +36,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router}/>
+    <SettingsProvider>
+      <RouterProvider router={router}/>
+    </SettingsProvider>
   </StrictMode>,
 )

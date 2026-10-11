@@ -114,6 +114,31 @@ form{
 #search:hover{
   background-color: var(--amber-flame);
 }
+
+#locate-btn {
+  background-color: var(--princeton-orange);
+  border: none;
+  color: white;
+  font-size: 18px;
+  padding: 5px 12px;
+  border-radius: 5px;
+  margin-left: 8px;
+  cursor: pointer;
+  box-shadow: 2px 2px 3px gray;
+  transition: all 100ms ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#locate-btn:hover {
+  background-color: var(--amber-flame);
+}
+
+#locate-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 /* =========================================================
    Main Grid Layout
    ========================================================= */
@@ -213,6 +238,27 @@ header {
 
 .locationName a{
   text-decoration: none;
+}
+
+.locationTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.currentLocationBadge {
+  background-color: var(--princeton-orange);
+  color: white;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .locationName h2 {
@@ -618,4 +664,305 @@ footer p{
     min-width: 130px;
     padding: 12px 10px;
   }
+}
+
+/* =========================================================
+   Settings Page Styles
+   ========================================================= */
+.settings-page {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  padding-bottom: 110px;
+  display: flex;
+  justify-content: center;
+}
+
+.settings-container {
+  width: min(700px, 100%);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  padding: 28px 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.settings-container h2 {
+  font-size: 1.8rem;
+  color: var(--deep-space-blue);
+  font-weight: 800;
+}
+
+.settings-subtitle {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin-top: -16px;
+}
+
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.settings-section h3 {
+  font-size: 1.15rem;
+  color: var(--deep-space-blue);
+  font-weight: 700;
+}
+
+.section-desc {
+  font-size: 0.88rem;
+  color: #64748b;
+  margin-top: -6px;
+}
+
+.settings-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.option-btn {
+  background: #f1f5f9;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+  color: var(--deep-space-blue);
+}
+
+.option-btn:hover {
+  background: #e2e8f0;
+  transform: translateY(-2px);
+}
+
+.option-btn.active {
+  background: var(--blue-green);
+  border-color: var(--deep-space-blue);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(33, 158, 188, 0.35);
+}
+
+.option-title {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.option-sub {
+  font-size: 0.75rem;
+  opacity: 0.85;
+}
+
+.option-icon {
+  font-size: 1.3rem;
+}
+
+/* =========================================================
+   Chart Header & Timezone Badge
+   ========================================================= */
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+  border-bottom: 2px solid var(--sky-blue-light, #8ecae6);
+  padding-bottom: 6px;
+}
+
+.chart-title {
+  margin: 0;
+  color: var(--deep-space-blue);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.chart-timezone-badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  background-color: rgba(33, 158, 188, 0.15);
+  color: var(--deep-space-blue);
+  padding: 4px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* =========================================================
+   Dark Theme Overrides
+   ========================================================= */
+[data-theme="dark"] body {
+  background: linear-gradient(180deg, #0f172a, #020617);
+  color: #f8fafc;
+}
+
+[data-theme="dark"] #location {
+  background-color: #1e293b;
+  color: #f8fafc;
+  border: 1px solid #334155;
+}
+
+[data-theme="dark"] #location::placeholder {
+  color: #64748b;
+}
+
+[data-theme="dark"] .card {
+  background-image: linear-gradient(150deg, #1e293b 35%, #0f172a);
+  background-color: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .locationName h2 {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .locationName p {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .currentLocationBadge {
+  background-color: var(--princeton-orange);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .card button img {
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+}
+
+[data-theme="dark"] .card button:hover img {
+  opacity: 1;
+}
+
+[data-theme="dark"] .report {
+  background-color: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .report img {
+  filter: brightness(0) invert(1);
+  opacity: 0.95;
+}
+
+[data-theme="dark"] .report p {
+  color: #38bdf8;
+  font-weight: 700;
+}
+
+[data-theme="dark"] .card-loading {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .locationDetails,
+[data-theme="dark"] .weatherDetails,
+[data-theme="dark"] .sevenDayContainer,
+[data-theme="dark"] .LineChart,
+[data-theme="dark"] .settings-container,
+[data-theme="dark"] .loadingComponent {
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f8fafc;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .locationDetails h2,
+[data-theme="dark"] .weatherDetails h3,
+[data-theme="dark"] .sevenDayContainer h3,
+[data-theme="dark"] .settings-container h2,
+[data-theme="dark"] .settings-section h3 {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .locationDetails p,
+[data-theme="dark"] .locationDetails .coordinates,
+[data-theme="dark"] .settings-subtitle,
+[data-theme="dark"] .section-desc {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .weatherDetails p {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .weatherDetails p:hover {
+  background: #334155;
+}
+
+/* Line Chart Dark Theme Alignments */
+[data-theme="dark"] .chart-header {
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .chart-title {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .chart-timezone-badge {
+  background-color: rgba(56, 189, 248, 0.18);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+[data-theme="dark"] .option-btn {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .option-btn:hover {
+  background: #334155;
+}
+
+[data-theme="dark"] .option-btn.active {
+  background: var(--blue-green);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .settings-section {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .about-section {
+  background-color: #0b1329;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .about-section h3 {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .bottomNavigator {
+  background-color: #0f172a;
+  border-top: 1px solid #1e293b;
+}
+
+[data-theme="dark"] .bottomNavigator a,
+[data-theme="dark"] .bottomNavigator div p {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .bottomNavigator div img {
+  filter: brightness(0) invert(1);
 }
